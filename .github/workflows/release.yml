@@ -47,6 +47,10 @@ jobs:
       # so IDEs with the repository URL configured see the update.
       - name: Update updatePlugins.xml on main
         run: |
+          # A re-run of an older tag must not point the repository back at an old version.
+          git fetch --tags origin
+          LATEST=$(git tag --list 'v*' --sort=-v:refname | head -n1)
+          [ "$GITHUB_REF_NAME" = "$LATEST" ] || { echo "not the newest tag ($LATEST), XML untouched"; exit 0; }
           VERSION="${GITHUB_REF_NAME#v}"
           ZIP=$(basename build/distributions/*.zip)
           SINCE=$(grep -oP 'pluginSinceBuild\s*=\s*\K\S+' gradle.properties)
