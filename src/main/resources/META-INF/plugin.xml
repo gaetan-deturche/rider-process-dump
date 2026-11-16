@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>dev.processdump</id>
+    <name>Process Dump</name>
+    <vendor>gaetan</vendor>
+
+    <description><![CDATA[
+        Writes a Windows minidump (.dmp) of the process attached to a debug session,
+        running or suspended, through dbghelp's MiniDumpWriteDump. Mini (stacks and the memory
+        they reference) or full (all committed memory). Available from the Run menu, the Debug
+        tool window's More menu, and as MCP tools on the IDE's built-in MCP server.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.xdebugger</depends>
+    <depends>com.intellij.modules.jna</depends>
+    <depends optional="true" config-file="process-dump-mcp.xml">com.intellij.mcpServer</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="Process Dump" displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <group id="ProcessDump.Group" text="Write Process Dump" popup="true">
+            <action id="ProcessDump.WriteMini" class="dev.processdump.WriteMiniDumpAction"
+                    text="Write Mini Dump…"
+                    description="Write a mini dump (thread stacks and the memory they reference) of the debugged process"/>
+            <action id="ProcessDump.WriteFull" class="dev.processdump.WriteFullDumpAction"
+                    text="Write Full Dump…"
+                    description="Write a full-memory dump of the debugged process"/>
+            <add-to-group group-id="RunMenu" anchor="last"/>
+            <add-to-group group-id="XDebugger.ToolWindow.TopToolbar3.Extra" anchor="last"/>
+        </group>
+    </actions>
+</idea-plugin>
