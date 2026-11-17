@@ -36,3 +36,10 @@ $env:JAVA_HOME='C:\Program Files\JetBrains\IntelliJ IDEA 2026.1\jbr'
 
 Output: `build/distributions/process-dump-<version>.zip` → Rider → Settings → Plugins → ⚙ →
 *Install Plugin from Disk*.
+
+## Updates
+
+Releases are published from `v*` tags, and
+`https://raw.githubusercontent.com/gaetan-deturche/rider-process-dump/main/updatePlugins.xml` is the
+custom plugin repository. From 0.3.0 the plugin adds that repository and its own "Updates from"
+source at startup, so after one install from disk, Rider offers new versions by itself.

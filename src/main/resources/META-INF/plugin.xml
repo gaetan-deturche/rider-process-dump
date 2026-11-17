@@ -19,6 +19,10 @@
         <notificationGroup id="Process Dump" displayType="BALLOON"/>
     </extensions>
 
+    <applicationListeners>
+        <listener class="dev.processdump.UpdateSourceRegistration" topic="com.intellij.ide.AppLifecycleListener"/>
+    </applicationListeners>
+
     <actions>
         <group id="ProcessDump.Group" text="Write Process Dump" popup="true">
             <action id="ProcessDump.WriteMini" class="dev.processdump.WriteMiniDumpAction"

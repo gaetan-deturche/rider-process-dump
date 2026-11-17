@@ -11,6 +11,10 @@ v<ver>` → `.github/workflows/release.yml` builds the zip, publishes a GitHub R
 Rider gets updates through the custom plugin repository
 `https://raw.githubusercontent.com/gaetan-deturche/rider-process-dump/main/updatePlugins.xml`
 (Settings → Plugins → ⚙ → Manage Plugin Repositories); a plugin installed from disk never updates.
+Since 0.3.0 `UpdateSourceRegistration` (an `AppLifecycleListener`) does both at startup: adds the URL
+to `UpdateSettings.storedPluginHosts` and, only when missing, sets the plugin's "Updates from" source
+via `PluginUpdateSourceService` (both `impl` APIs, wrapped in `runCatching`). Same code in the
+user's other Rider plugins.
 CI runs `buildPlugin` only (the tests dump a Windows process). Never run `gradlew --stop`: the plugin
 repos share one Gradle daemon pool.
 
